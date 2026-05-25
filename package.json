@@ -28,6 +28,7 @@
 	},
 	"homepage": "https://github.com/Iykekelvins/notes-app#readme",
 	"dependencies": {
+		"@epic-web/remember": "^1.1.0",
 		"bcrypt": "^6.0.0",
 		"cors": "^2.8.6",
 		"custom-env": "^2.0.6",
@@ -47,6 +48,7 @@
 		"@types/express": "^5.0.6",
 		"@types/morgan": "^1.9.10",
 		"@types/node": "^25.9.1",
+		"@types/pg": "^8.20.0",
 		"drizzle-kit": "^0.31.10",
 		"typescript": "^6.0.3"
 	}
