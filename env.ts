@@ -31,6 +31,18 @@ const envSchema = z.object({
 
 	// SECURITY
 	BCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
+
+	// CORS
+	CORS_ORIGIN: z
+		.string()
+		.or(z.array(z.string()))
+		.transform((val) => {
+			if (typeof val === 'string') {
+				return val.split(',').map((origin) => origin.trim());
+			}
+			return val;
+		})
+		.default([]),
 });
 
 export type Env = z.infer<typeof envSchema>;
