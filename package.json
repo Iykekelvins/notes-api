@@ -1,0 +1,21 @@
+{
+	"name": "notes-app",
+	"version": "1.0.0",
+	"description": "Notes Taking API with Node.js",
+	"main": "src/index.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Iykekelvins/notes-app.git"
+	},
+	"keywords": [],
+	"author": "Kelvin Ochubili",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/Iykekelvins/notes-app/issues"
+	},
+	"homepage": "https://github.com/Iykekelvins/notes-app#readme"
+}
