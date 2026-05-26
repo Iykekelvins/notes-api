@@ -5,11 +5,13 @@ import env, { isTestEnv } from '../env.ts';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import dns from 'dns';
 
 // Routes
 import authRoutes from './routes/authRoutes.ts';
 
 const app = express();
+dns.setServers(['8.8.8.8', '8.8.4.4']); // Google DNS
 
 app.use(helmet());
 app.use(
