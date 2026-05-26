@@ -9,6 +9,7 @@ import dns from 'dns';
 
 // Routes
 import authRoutes from './routes/authRoutes.ts';
+import noteRoutes from './routes/noteRoutes.ts';
 
 const app = express();
 dns.setServers(['8.8.8.8', '8.8.4.4']); // Google DNS
@@ -38,8 +39,9 @@ app.get('/health', (req, res) => {
 	});
 });
 
-// Auth Routes
+// AP Routes
 app.use('/api/auth', authRoutes);
+app.use('/notes', noteRoutes);
 
 // 404 for Non existing API routes
 app.use('/api/*path', (req, res) => {
