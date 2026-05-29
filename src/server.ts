@@ -10,6 +10,7 @@ import dns from 'dns';
 
 // Routes
 import authRoutes from './routes/authRoutes.ts';
+import userRoutes from './routes/userRoutes.ts';
 import noteRoutes from './routes/noteRoutes.ts';
 import tagRoutes from './routes/tagRoutes.ts';
 
@@ -42,6 +43,7 @@ app.get('/health', (req, res) => {
 
 // AP Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/tags', tagRoutes);
 
