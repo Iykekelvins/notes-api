@@ -1,6 +1,11 @@
 import { Router } from 'express';
 import { authenticateToken } from '../middleware/auth.ts';
-import { createNote, getUserNotes, updateNote } from '../controllers/noteController.ts';
+import {
+	createNote,
+	deleteNote,
+	getUserNotes,
+	updateNote,
+} from '../controllers/noteController.ts';
 import { validateBody, validateParams } from '../middleware/validation.ts';
 import z from 'zod';
 
@@ -19,16 +24,19 @@ const updateNoteSchema = z.object({
 });
 
 const uuidSchema = z.object({
-  id: z.string().uuid('Invalid habit ID format'),
-})
-
+	id: z.string().uuid('Invalid habit ID format'),
+});
 
 router.use(authenticateToken);
 
 router.get('/', getUserNotes);
 router.post('/', validateBody(createNoteSchema), createNote);
-router.patch('/:id', validateParams(uuidSchema),validateBody(updateNoteSchema), updateNote)
-router.delete
-
+router.put(
+	'/:id',
+	validateParams(uuidSchema),
+	validateBody(updateNoteSchema),
+	updateNote,
+);
+router.delete('/:id', validateParams(uuidSchema), deleteNote);
 
 export default router;

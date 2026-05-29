@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config({ path: '.env.test' });
+
 import { db } from '../../src/db/connection.ts';
 import { users, notes, tags } from '../../src/db/schema.ts';
 import { hashPassword } from '../../src/utils/password.ts';
