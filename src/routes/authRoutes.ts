@@ -1,17 +1,27 @@
 import { Router } from 'express';
 import { loginUser, registerUser } from '../controllers/authController.ts';
 import { validateBody } from '../middleware/validation.ts';
-import { insertUserSchema } from '../db/schema.ts';
 import z from 'zod';
 
 const router = Router();
+
+const registerSchema = z.object({
+	email: z.string().email('Invalid email format'),
+	username: z
+		.string()
+		.min(3, 'Username must be at least 3 characters')
+		.max(50, 'Username too long'),
+	password: z.string().min(8, 'Password must be at least 8 characters'),
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
+});
 
 const loginSchema = z.object({
 	email: z.string().email('Invalid email format'),
 	password: z.string().min(1, 'Password is required'),
 });
 
-router.post('/register', validateBody(insertUserSchema), registerUser);
+router.post('/register', validateBody(registerSchema), registerUser);
 
 router.post('/login', validateBody(loginSchema), loginUser);
 
