@@ -4,7 +4,7 @@
 	"description": "Notes Taking API with Node.js",
 	"main": "src/index.ts",
 	"scripts": {
-		"dev": "node --watch src/index.ts",
+		"dev": "tsx watch src/index.ts",
 		"start": "node src/index.ts",
 		"test": "vitest run",
 		"test:watch": "vitest",

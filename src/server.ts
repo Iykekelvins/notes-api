@@ -1,5 +1,6 @@
 import express from 'express';
 import env, { isTestEnv } from '../env.ts';
+import { errorHandler, notFound } from './middleware/errorHandler.ts';
 
 // Middlewares
 import cors from 'cors';
@@ -22,7 +23,6 @@ app.use(
 		credentials: true,
 	}),
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -42,16 +42,10 @@ app.get('/health', (req, res) => {
 
 // AP Routes
 app.use('/api/auth', authRoutes);
-app.use('/notes', noteRoutes);
-app.use('/tags', tagRoutes);
+app.use('/api/notes', noteRoutes);
+app.use('/api/tags', tagRoutes);
 
-// 404 for Non existing API routes
-app.use('/api/*path', (req, res) => {
-	res.status(404).json({
-		error: 'API route not found',
-		message: `Cannot ${req.method} ${req.originalUrl}`,
-		timestamp: new Date().toISOString(),
-	});
-});
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

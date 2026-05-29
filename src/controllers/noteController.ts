@@ -1,6 +1,6 @@
-import type { Response, Request } from 'express';
+import type { Response } from 'express';
 import type { AuthenticatedRequest } from '../middleware/auth.ts';
-import { notes, tags, noteTags } from '../db/schema.ts';
+import { notes, noteTags } from '../db/schema.ts';
 import { and, desc, eq } from 'drizzle-orm';
 import db from '../db/connection.ts';
 

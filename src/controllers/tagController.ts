@@ -4,7 +4,7 @@ import { tags, noteTags } from '../db/schema.ts';
 import { eq } from 'drizzle-orm';
 import db from '../db/connection.ts';
 
-export const createTag = async (req: Request, res: Response) => {
+export const createTag = async (req: AuthenticatedRequest, res: Response) => {
 	try {
 		const { name } = req.body;
 
@@ -88,7 +88,7 @@ export const getTagById = async (req: Request, res: Response) => {
 	}
 };
 
-export const updateTag = async (req: Request, res: Response) => {
+export const updateTag = async (req: AuthenticatedRequest, res: Response) => {
 	try {
 		const { id } = req.params;
 		const { name } = req.body;
@@ -126,9 +126,23 @@ export const updateTag = async (req: Request, res: Response) => {
 	}
 };
 
-export const deleteTag = async (req: Request, res: Response) => {
+export const deleteTag = async (req: AuthenticatedRequest, res: Response) => {
 	try {
 		const { id } = req.params;
+
+		// Check if tag is being used
+		const tagUsage = await db
+			.select()
+			.from(noteTags)
+			.where(eq(noteTags.tagId, id.toString()))
+			.limit(1);
+
+		if (tagUsage.length > 0) {
+			return res.status(409).json({
+				error: 'Cannot delete tag that is currently in use',
+				message: 'Remove this tag from all notes before deleting',
+			});
+		}
 
 		const [tag] = await db
 			.delete(tags)
